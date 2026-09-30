@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080C14" />
+  <meta name="description" content="Ayush Jawane — Java Full Stack Developer & AI/ML Enthusiast. Portfolio featuring interactive AI assistant, projects, skills, and background." />
+  <meta name="author" content="Ayush Jawane" />
+  <title>Ayush Jawane &mdash; Java Full Stack Developer | AI &amp; ML</title>
+
+  <!-- Google Fonts: Kanit (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Kanit:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            neon: {
+              DEFAULT: '#00FF87',
+              dim: '#00cc6a',
+              glow: 'rgba(0, 255, 135, 0.35)',
+              dark: '#003d1e'
+            },
+            cyanAccent: {
+              DEFAULT: '#00F0FF',
+              glow: 'rgba(0, 240, 255, 0.3)'
+            },
+            darkBg: '#080C14',
+            darkCard: '#0E1424',
+            darkBorder: 'rgba(255, 255, 255, 0.08)'
+          },
+          fontFamily: {
+            kanit: ['Kanit', 'sans-serif'],
+            inter: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-[#080C14] text-gray-200 font-inter antialiased selection:bg-neon selection:text-black overflow-x-hidden">
+
+  <!-- Custom Glow Cursor -->
+  <div id="cursor-dot" class="cursor-dot"></div>
+  <div id="cursor-ring" class="cursor-ring"></div>
+
+  <!-- Background Canvas for Particles & Cyber Grid -->
+  <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-neon via-cyanAccent to-neon z-50 transition-all duration-75"></div>
+
+  <!-- Navigation Bar -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 backdrop-blur-md bg-[#080C14]/80 border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#hero" class="group flex items-center space-x-3 text-2xl font-kanit font-bold tracking-tight text-white">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon/20 to-cyanAccent/10 border border-neon/40 flex items-center justify-center text-neon font-black transition-transform group-hover:scale-110 shadow-lg shadow-neon/10">
+          AJ
+        </div>
+        <span class="text-xl">Ayush<span class="text-neon">.dev</span></span>
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-mono font-medium bg-neon/10 text-neon border border-neon/20 hidden md:inline-flex">
+          <span class="w-1.5 h-1.5 rounded-full bg-neon animate-ping mr-1.5"></span>
+          Ready to Code
+        </span>
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+        <a href="#about" class="nav-link px-3 py-2 text-sm font-medium text-gray-300 hover:text-neon transition-colors">About</a>
+        <a href="#skills" class="nav-link px-3 py-2 text-sm font-medium text-gray-300 hover:text-neon transition-colors">Skills</a>
+        <a href="#experience" class="nav-link px-3 py-2 text-sm font-medium text-gray-300 hover:text-neon transition-colors">Experience</a>
+        <a href="#projects" class="nav-link px-3 py-2 text-sm font-medium text-gray-300 hover:text-neon transition-colors">Projects</a>
+        <a href="#resume" class="nav-link px-3 py-2 text-sm font-medium text-gray-300 hover:text-neon transition-colors">Resume</a>
+        <a href="#contact" class="nav-link px-3 py-2 text-sm font-medium text-gray-300 hover:text-neon transition-colors">Contact</a>
+      </nav>
+
+      <!-- Action Buttons & Audio Toggle -->
+      <div class="hidden md:flex items-center space-x-4">
+        <!-- AI Audio Mute/Unmute Button -->
+        <button id="audio-toggle-btn" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:border-neon/50 text-xs font-mono text-gray-300 hover:text-white transition-all shadow-sm" title="Toggle AI Voice Sound">
+          <span id="audio-icon"><i data-lucide="volume-2" class="w-4 h-4 text-neon"></i></span>
+          <span id="audio-label">AI Voice: ON</span>
+        </button>
+
+        <a href="#contact" class="relative group overflow-hidden px-5 py-2.5 rounded-xl bg-neon text-black font-kanit font-semibold text-sm tracking-wide shadow-lg shadow-neon/20 hover:shadow-neon/40 transition-all hover:scale-105 active:scale-95">
+          <span class="relative z-10 flex items-center space-x-1.5">
+            <span>Let's Talk</span>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+          </span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex items-center space-x-3 md:hidden">
+        <button id="mobile-audio-toggle" class="p-2 rounded-lg border border-white/10 bg-white/5 text-neon">
+          <i data-lucide="volume-2" class="w-5 h-5"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:text-white focus:outline-none">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobile-drawer" class="hidden md:hidden border-b border-white/10 bg-[#080C14]/95 backdrop-blur-xl px-4 pt-2 pb-6 space-y-3">
+      <a href="#about" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:bg-white/5 hover:text-neon">About</a>
+      <a href="#skills" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:bg-white/5 hover:text-neon">Skills</a>
+      <a href="#experience" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:bg-white/5 hover:text-neon">Experience</a>
+      <a href="#projects" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:bg-white/5 hover:text-neon">Projects</a>
+      <a href="#resume" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:bg-white/5 hover:text-neon">Resume</a>
+      <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:bg-white/5 hover:text-neon">Contact</a>
+      <div class="pt-2 flex flex-col space-y-2">
+        <a href="#contact" class="w-full py-2.5 text-center rounded-lg bg-neon text-black font-kanit font-semibold text-sm">Let's Talk</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 pt-24">
+    <!-- ================================================================ -->
+    <!-- HERO SECTION WITH TALKING AI CHARACTER                          -->
+    <!-- ================================================================ -->
+    <section id="hero" class="min-h-[92vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative">
+      <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Column: Intro Text & CTAs -->
+        <div class="lg:col-span-7 space-y-6 text-left">
+          
+          <!-- Status Badge -->
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+            <span class="w-2.5 h-2.5 rounded-full bg-neon animate-pulse shadow-sm shadow-neon"></span>
+            <span class="text-xs font-mono font-medium text-gray-300">
+              Open to SDE & Java Full Stack Opportunities
+            </span>
+          </div>
+
+          <!-- Hero Headline -->
+          <div class="space-y-2">
+            <p class="text-neon font-mono text-sm tracking-wider uppercase font-semibold">
+              // HELLO WORLD, WELCOME
+            </p>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-kanit font-black tracking-tight text-white leading-tight">
+              Hi, I'm <br class="hidden sm:block" />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon via-[#66ffb2] to-cyanAccent drop-shadow-[0_0_25px_rgba(0,255,135,0.3)]">
+                Ayush Jawane.
+              </span>
+            </h1>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-kanit font-medium text-gray-300">
+              Java Full Stack Developer
+            </h2>
+          </div>
+
+          <!-- Tagline -->
+          <p class="text-lg sm:text-xl text-gray-400 font-normal leading-relaxed max-w-2xl">
+            Building scalable applications and exploring AI. Specializing in high-throughput backend services with <span class="text-white font-medium">Java & Spring Boot</span>, modern frontend interfaces, and cutting-edge <span class="text-white font-medium">Machine Learning</span> models.
+          </p>
+
+          <!-- Quick Metrics Bar -->
+          <div class="grid grid-cols-3 gap-4 pt-2 pb-2 max-w-lg border-y border-white/10 py-3">
+            <div>
+              <div class="text-2xl sm:text-3xl font-kanit font-bold text-white">B.Tech</div>
+              <div class="text-xs font-mono text-gray-400">AI & ML '27</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-kanit font-bold text-neon">Java / Spring</div>
+              <div class="text-xs font-mono text-gray-400">Core Stack</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-kanit font-bold text-cyanAccent">Indore</div>
+              <div class="text-xs font-mono text-gray-400">IPS Academy</div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="#projects" class="group relative px-6 py-3.5 rounded-xl bg-neon text-black font-kanit font-bold text-base tracking-wide shadow-xl shadow-neon/25 hover:shadow-neon/40 hover:scale-105 active:scale-95 transition-all flex items-center space-x-2">
+              <span>View Projects</span>
+              <i data-lucide="folder-git-2" class="w-4 h-4 transition-transform group-hover:rotate-12"></i>
+            </a>
+
+            <a href="assets/resume.pdf" download="Ayush_Jawane_Resume.pdf" class="group px-6 py-3.5 rounded-xl bg-[#0E1424] border border-white/15 hover:border-neon text-white hover:text-neon font-kanit font-semibold text-base transition-all hover:scale-105 active:scale-95 flex items-center space-x-2 shadow-lg">
+              <i data-lucide="download" class="w-4 h-4 transition-transform group-hover:-translate-y-0.5"></i>
+              <span>Download Resume</span>
+            </a>
+
+            <!-- Social Links -->
+            <div class="flex items-center space-x-2 pl-1">
+              <a href="https://www.linkedin.com/in/ayush-jawane-234541317/" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl bg-white/5 hover:bg-neon/10 border border-white/10 hover:border-neon/50 text-gray-300 hover:text-neon transition-all hover:scale-110" title="LinkedIn Profile">
+                <i data-lucide="linkedin" class="w-5 h-5"></i>
+              </a>
+              <a href="https://github.com/ayushjawane27" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl bg-white/5 hover:bg-neon/10 border border-white/10 hover:border-neon/50 text-gray-300 hover:text-neon transition-all hover:scale-110" title="GitHub Profile">
+                <i data-lucide="github" class="w-5 h-5"></i>
+              </a>
+              <a href="mailto:ayush.jawane27@gmail.com" class="p-3 rounded-xl bg-white/5 hover:bg-neon/10 border border-white/10 hover:border-neon/50 text-gray-300 hover:text-neon transition-all hover:scale-110" title="Email Ayush">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: HUMAN TALKING CHARACTER CARD -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center human-card-perspective">
+          <div id="human-character-card" class="relative w-full max-w-md bg-gradient-to-b from-[#10182c] to-[#0a0f1d] border border-neon/30 rounded-3xl p-5 shadow-2xl shadow-neon/10 backdrop-blur-xl transition-all duration-300">
+            
+            <!-- Neon Corner Accent Badges -->
+            <div class="absolute -top-3 -right-3 px-3.5 py-1 bg-neon text-black font-mono text-xs font-bold rounded-full shadow-lg shadow-neon/30 flex items-center space-x-1.5 z-20">
+              <span class="w-2 h-2 rounded-full bg-black animate-ping"></span>
+              <span>LIVE AYUSH</span>
+            </div>
+
+            <!-- Card Header & Status Indicator -->
+            <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+              <div class="flex items-center space-x-3">
+                <div class="relative">
+                  <div class="w-3 h-3 rounded-full bg-neon animate-ping absolute inset-0"></div>
+                  <div class="w-3 h-3 rounded-full bg-neon relative"></div>
+                </div>
+                <div>
+                  <h3 class="text-sm font-kanit font-bold text-white tracking-wide">AYUSH JAWANE</h3>
+                  <p id="ai-status-text" class="text-xs font-mono text-gray-400">Online &amp; Interactive</p>
+                </div>
+              </div>
+              
+              <!-- Speaking Wave Indicator -->
+              <div id="speaking-wave" class="hidden flex items-center space-x-1 h-5 px-2.5 bg-neon/10 border border-neon/30 rounded-full">
+                <span class="w-1 h-2 bg-neon animate-bounce rounded-full"></span>
+                <span class="w-1 h-4 bg-neon animate-bounce rounded-full [animation-delay:0.15s]"></span>
+                <span class="w-1 h-3 bg-neon animate-bounce rounded-full [animation-delay:0.3s]"></span>
+                <span class="w-1 h-4 bg-neon animate-bounce rounded-full [animation-delay:0.45s]"></span>
+                <span class="text-[10px] font-mono text-neon font-bold ml-1">SPEAKING</span>
+              </div>
+            </div>
+
+            <!-- Human Character Visual Frame with 3D Tilt -->
+            <div id="human-character-wrapper" class="human-character-wrapper relative flex items-center justify-center mb-4">
+              <div class="human-rim-glow"></div>
+              <div class="human-character-image-box relative w-full h-[340px] sm:h-[380px] rounded-2xl overflow-hidden border border-white/10 bg-[#060a12] shadow-inner">
+                <!-- Idle Frame -->
+                <img id="char-frame-idle" src="assets/images/ayush_idle.jpg" alt="Ayush Jawane - Idle" class="char-frame active" />
+                <!-- Blinking Frame -->
+                <img id="char-frame-blink" src="assets/images/ayush_blink.jpg" alt="Ayush Jawane - Blinking" class="char-frame" />
+                <!-- Talking Frame -->
+                <img id="char-frame-talk" src="assets/images/ayush_talking.jpg" alt="Ayush Jawane - Speaking" class="char-frame" />
+
+                <!-- Ambient Subtle Bottom Fade to match card -->
+                <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a0f1d] via-[#0a0f1d]/40 to-transparent pointer-events-none"></div>
+
+                <!-- Live Tag Overlay -->
+                <div class="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-black/60 border border-white/15 backdrop-blur-md flex items-center space-x-1.5 pointer-events-none">
+                  <span class="w-1.5 h-1.5 rounded-full bg-neon animate-pulse"></span>
+                  <span class="text-[10px] font-mono text-gray-300">Natural Voice &amp; Animation</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Speech Bubble -->
+            <div class="relative bg-black/60 border border-neon/20 rounded-2xl p-4 mb-3 text-left">
+              <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-black/60 border-t border-l border-neon/20 rotate-45"></div>
+              <p id="speech-bubble-text" class="text-sm font-inter text-gray-200 leading-relaxed min-h-[3rem]">
+                "Hello! I'm Ayush Jawane. Welcome to my portfolio! Ask me anything about my skills, projects, or education, or click the mic to talk with me!"
+              </p>
+            </div>
+
+            <!-- Quick Suggestion Action Chips -->
+            <div class="flex flex-wrap gap-1.5 mb-3.5 justify-center">
+              <button class="ai-chip text-xs px-2.5 py-1 rounded-full bg-white/5 hover:bg-neon/20 border border-white/10 hover:border-neon/40 text-gray-300 hover:text-neon transition-all" data-query="skills">
+                ⚡ Skills
+              </button>
+              <button class="ai-chip text-xs px-2.5 py-1 rounded-full bg-white/5 hover:bg-neon/20 border border-white/10 hover:border-neon/40 text-gray-300 hover:text-neon transition-all" data-query="projects">
+                💼 Projects
+              </button>
+              <button class="ai-chip text-xs px-2.5 py-1 rounded-full bg-white/5 hover:bg-neon/20 border border-white/10 hover:border-neon/40 text-gray-300 hover:text-neon transition-all" data-query="education">
+                🎓 Education
+              </button>
+              <button class="ai-chip text-xs px-2.5 py-1 rounded-full bg-white/5 hover:bg-neon/20 border border-white/10 hover:border-neon/40 text-gray-300 hover:text-neon transition-all" data-query="resume">
+                📄 Resume
+              </button>
+              <button class="ai-chip text-xs px-2.5 py-1 rounded-full bg-white/5 hover:bg-neon/20 border border-white/10 hover:border-neon/40 text-gray-300 hover:text-neon transition-all" data-query="contact">
+                📫 Contact
+              </button>
+            </div>
+
+            <!-- Interactive Voice & Text Input Form -->
+            <form id="ai-chat-form" class="flex items-center space-x-2">
+              <div class="relative flex-1">
+                <input 
+                  type="text" 
+                  id="ai-user-input" 
+                  placeholder="Ask Ayush anything..." 
+                  class="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 focus:border-neon focus:ring-1 focus:ring-neon text-sm text-white placeholder-gray-500 transition-all font-inter outline-none"
+                />
+              </div>
+
+              <!-- Microphone Voice Input Button -->
+              <button 
+                type="button" 
+                id="ai-mic-btn" 
+                class="p-2.5 rounded-xl bg-white/5 border border-white/15 hover:border-neon text-gray-300 hover:text-neon transition-all hover:scale-105 active:scale-95" 
+                title="Click to speak (Voice Recognition)"
+              >
+                <i data-lucide="mic" class="w-4 h-4"></i>
+              </button>
+
+              <!-- Send Button -->
+              <button 
+                type="submit" 
+                id="ai-send-btn" 
+                class="p-2.5 rounded-xl bg-neon text-black font-semibold hover:bg-[#66ffb2] transition-all hover:scale-105 active:scale-95 shadow-md shadow-neon/20" 
+                title="Send query"
+              >
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </button>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- ABOUT ME SECTION                                                -->
+    <!-- ================================================================ -->
+    <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <p class="text-neon font-mono text-xs tracking-widest uppercase font-semibold">// 01. ABOUT ME</p>
+        <h2 class="text-3xl sm:text-5xl font-kanit font-bold text-white">
+          Architecting Scalable Backend Systems & Exploring AI
+        </h2>
+        <div class="w-16 h-1 bg-neon mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Bio Narrative -->
+        <div class="lg:col-span-7 space-y-6 text-gray-300 text-base sm:text-lg leading-relaxed">
+          <p>
+            Hello! I am <strong class="text-white font-medium">Ayush Jawane</strong>, a passionate <span class="text-neon font-semibold">Java Full Stack Developer</span> currently pursuing my B.Tech in <span class="text-white font-medium">Artificial Intelligence and Machine Learning</span> at <span class="text-white font-medium">IPS Academy, Indore</span> (Graduating Batch 2027).
+          </p>
+          <p>
+            My engineering journey is driven by a deep fascination with building high-concurrency, enterprise-grade backends using <span class="text-white font-semibold">Java, Spring Boot, and Microservices architecture</span>, backed by structured SQL databases and clean RESTful API standards.
+          </p>
+          <p>
+            Simultaneously, my coursework and personal research in Artificial Intelligence empower me to bridge conventional full-stack web applications with intelligent machine learning capabilities—enabling smart data analytics, predictive pipelines, and automated intelligence.
+          </p>
+          <p>
+            I thrive in problem-solving environments, adhere to clean architecture design principles, and am actively seeking opportunities to contribute to impactful software engineering teams.
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-4">
+            <span class="px-3.5 py-1.5 rounded-lg bg-[#0E1424] border border-neon/30 text-xs font-mono text-neon flex items-center space-x-1.5">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              <span>Clean Code & Design Patterns</span>
+            </span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-[#0E1424] border border-cyanAccent/30 text-xs font-mono text-cyanAccent flex items-center space-x-1.5">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              <span>Microservices & REST APIs</span>
+            </span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-[#0E1424] border border-white/20 text-xs font-mono text-gray-300 flex items-center space-x-1.5">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              <span>AI / ML Algorithms</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Metric Highlight Cards Grid -->
+        <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Card 1 -->
+          <div class="p-6 rounded-2xl bg-[#0E1424]/90 border border-white/10 hover:border-neon/40 transition-all hover:-translate-y-1 shadow-lg group">
+            <div class="w-12 h-12 rounded-xl bg-neon/10 border border-neon/30 flex items-center justify-center text-neon mb-4 group-hover:scale-110 transition-transform">
+              <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-kanit font-bold text-white mb-1">B.Tech AIML</h3>
+            <p class="text-sm text-gray-400 font-inter">IPS Academy, Indore</p>
+            <p class="text-xs font-mono text-neon mt-2">Class of 2027</p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="p-6 rounded-2xl bg-[#0E1424]/90 border border-white/10 hover:border-cyanAccent/40 transition-all hover:-translate-y-1 shadow-lg group">
+            <div class="w-12 h-12 rounded-xl bg-cyanAccent/10 border border-cyanAccent/30 flex items-center justify-center text-cyanAccent mb-4 group-hover:scale-110 transition-transform">
+              <i data-lucide="server" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-kanit font-bold text-white mb-1">Java & Spring</h3>
+            <p class="text-sm text-gray-400 font-inter">Full Stack & Microservices</p>
+            <p class="text-xs font-mono text-cyanAccent mt-2">Robust Backends</p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="p-6 rounded-2xl bg-[#0E1424]/90 border border-white/10 hover:border-neon/40 transition-all hover:-translate-y-1 shadow-lg group">
+            <div class="w-12 h-12 rounded-xl bg-neon/10 border border-neon/30 flex items-center justify-center text-neon mb-4 group-hover:scale-110 transition-transform">
+              <i data-lucide="brain" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-kanit font-bold text-white mb-1">AI & Machine Learning</h3>
+            <p class="text-sm text-gray-400 font-inter">Python & Neural Networks</p>
+            <p class="text-xs font-mono text-neon mt-2">Future Specialization</p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="p-6 rounded-2xl bg-[#0E1424]/90 border border-white/10 hover:border-cyanAccent/40 transition-all hover:-translate-y-1 shadow-lg group">
+            <div class="w-12 h-12 rounded-xl bg-cyanAccent/10 border border-cyanAccent/30 flex items-center justify-center text-cyanAccent mb-4 group-hover:scale-110 transition-transform">
+              <i data-lucide="code" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-kanit font-bold text-white mb-1">Full Stack Craft</h3>
+            <p class="text-sm text-gray-400 font-inter">React, SQL, Git & APIs</p>
+            <p class="text-xs font-mono text-cyanAccent mt-2">End-to-End Delivery</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- TECHNICAL SKILLS SECTION                                        -->
+    <!-- ================================================================ -->
+    <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <p class="text-neon font-mono text-xs tracking-widest uppercase font-semibold">// 02. TECHNICAL ARSENAL</p>
+        <h2 class="text-3xl sm:text-5xl font-kanit font-bold text-white">Skills & Core Competencies</h2>
+        <p class="text-gray-400 font-inter text-base">Organized expertise spanning enterprise Java backend engineering, modern frontends, databases, and AI/ML.</p>
+        <div class="w-16 h-1 bg-neon mx-auto rounded-full"></div>
+      </div>
+
+      <!-- Skill Category Filter Tabs -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12">
+        <button class="skill-tab active px-4 py-2 rounded-xl font-kanit font-medium text-sm transition-all" data-category="all">
+          All Skills
+        </button>
+        <button class="skill-tab px-4 py-2 rounded-xl font-kanit font-medium text-sm transition-all text-gray-400 hover:text-white" data-category="programming">
+          Programming
+        </button>
+        <button class="skill-tab px-4 py-2 rounded-xl font-kanit font-medium text-sm transition-all text-gray-400 hover:text-white" data-category="backend">
+          Backend
+        </button>
+        <button class="skill-tab px-4 py-2 rounded-xl font-kanit font-medium text-sm transition-all text-gray-400 hover:text-white" data-category="frontend">
+          Frontend
+        </button>
+        <button class="skill-tab px-4 py-2 rounded-xl font-kanit font-medium text-sm transition-all text-gray-400 hover:text-white" data-category="database-tools">
+          Database & Tools
+        </button>
+        <button class="skill-tab px-4 py-2 rounded-xl font-kanit font-medium text-sm transition-all text-gray-400 hover:text-white" data-category="ai-ml">
+          AI / ML
+        </button>
+      </div>
+
+      <!-- Skills Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="skills-grid">
+        
+        <!-- Programming Category -->
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-neon/50 transition-all hover:-translate-y-1 group" data-category="programming">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-neon font-bold uppercase tracking-wider">PROGRAMMING</span>
+            <i data-lucide="terminal" class="w-5 h-5 text-gray-400 group-hover:text-neon transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">Java</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">Core Java, OOPs, Collections, Multithreading, Streams API, and JVM architecture fundamentals.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>Enterprise Language</span>
+            <span class="text-neon font-bold">Advanced</span>
+          </div>
+        </div>
+
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-neon/50 transition-all hover:-translate-y-1 group" data-category="programming">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-neon font-bold uppercase tracking-wider">PROGRAMMING</span>
+            <i data-lucide="code-2" class="w-5 h-5 text-gray-400 group-hover:text-neon transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">Python</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">Scientific scripting, data manipulation, algorithm implementation, and AI/ML model prototyping.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>AI & Automation</span>
+            <span class="text-neon font-bold">Proficient</span>
+          </div>
+        </div>
+
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-neon/50 transition-all hover:-translate-y-1 group" data-category="programming">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-neon font-bold uppercase tracking-wider">PROGRAMMING</span>
+            <i data-lucide="braces" class="w-5 h-5 text-gray-400 group-hover:text-neon transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">JavaScript</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">ES6+ syntax, asynchronous programming, DOM interactions, APIs, and modern clientside logic.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>Web Standard</span>
+            <span class="text-neon font-bold">Proficient</span>
+          </div>
+        </div>
+
+        <!-- Backend Category -->
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-cyanAccent/50 transition-all hover:-translate-y-1 group" data-category="backend">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-cyanAccent font-bold uppercase tracking-wider">BACKEND</span>
+            <i data-lucide="layers" class="w-5 h-5 text-gray-400 group-hover:text-cyanAccent transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">Spring & Spring Boot</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">IoC/DI, Spring MVC, Spring Data JPA, Hibernate, Spring Security, and auto-configuration.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>Enterprise Framework</span>
+            <span class="text-cyanAccent font-bold">Advanced</span>
+          </div>
+        </div>
+
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-cyanAccent/50 transition-all hover:-translate-y-1 group" data-category="backend">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-cyanAccent font-bold uppercase tracking-wider">BACKEND</span>
+            <i data-lucide="network" class="w-5 h-5 text-gray-400 group-hover:text-cyanAccent transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">Microservices</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">Decoupled services, API gateways, service discovery, resilient communication, and container patterns.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>Architecture</span>
+            <span class="text-cyanAccent font-bold">Proficient</span>
+          </div>
+        </div>
+
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-cyanAccent/50 transition-all hover:-translate-y-1 group" data-category="backend">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-cyanAccent font-bold uppercase tracking-wider">BACKEND</span>
+            <i data-lucide="link-2" class="w-5 h-5 text-gray-400 group-hover:text-cyanAccent transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">REST APIs</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">Design and integration of secure, scalable, stateless HTTP endpoints with standardized JSON contracts.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>API Design</span>
+            <span class="text-cyanAccent font-bold">Advanced</span>
+          </div>
+        </div>
+
+        <!-- Frontend Category -->
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-neon/50 transition-all hover:-translate-y-1 group" data-category="frontend">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-neon font-bold uppercase tracking-wider">FRONTEND</span>
+            <i data-lucide="layout" class="w-5 h-5 text-gray-400 group-hover:text-neon transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">React.js</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">Functional components, hooks, state management, SPA routing, and modular frontend architectures.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>UI Library</span>
+            <span class="text-neon font-bold">Proficient</span>
+          </div>
+        </div>
+
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-neon/50 transition-all hover:-translate-y-1 group" data-category="frontend">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-neon font-bold uppercase tracking-wider">FRONTEND</span>
+            <i data-lucide="palette" class="w-5 h-5 text-gray-400 group-hover:text-neon transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">HTML & CSS / Bootstrap</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">Semantic HTML5, CSS3 Grid/Flexbox, responsive design, Bootstrap utility framework, and clean layouts.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>Core Web</span>
+            <span class="text-neon font-bold">Proficient</span>
+          </div>
+        </div>
+
+        <!-- Database & Tools Category -->
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-cyanAccent/50 transition-all hover:-translate-y-1 group" data-category="database-tools">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-cyanAccent font-bold uppercase tracking-wider">DATABASE & TOOLS</span>
+            <i data-lucide="database" class="w-5 h-5 text-gray-400 group-hover:text-cyanAccent transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">SQL</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">Relational database design, normalization, complex joins, indexing, query optimization, and transactions.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>Data Storage</span>
+            <span class="text-cyanAccent font-bold">Advanced</span>
+          </div>
+        </div>
+
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-cyanAccent/50 transition-all hover:-translate-y-1 group" data-category="database-tools">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-cyanAccent font-bold uppercase tracking-wider">DATABASE & TOOLS</span>
+            <i data-lucide="git-branch" class="w-5 h-5 text-gray-400 group-hover:text-cyanAccent transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">Git & GitHub</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">Distributed version control, branch management, pull requests, collaboration, and repository workflows.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>Collaboration</span>
+            <span class="text-cyanAccent font-bold">Proficient</span>
+          </div>
+        </div>
+
+        <!-- AI/ML Category -->
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-neon/50 transition-all hover:-translate-y-1 group" data-category="ai-ml">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-neon font-bold uppercase tracking-wider">AI / ML</span>
+            <i data-lucide="cpu" class="w-5 h-5 text-gray-400 group-hover:text-neon transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">Artificial Intelligence</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">Foundational AI search algorithms, heuristics, knowledge representation, and problem formulation.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>AI Core</span>
+            <span class="text-neon font-bold">Core Focus</span>
+          </div>
+        </div>
+
+        <div class="skill-card p-6 rounded-2xl bg-[#0E1424]/80 border border-white/10 hover:border-neon/50 transition-all hover:-translate-y-1 group" data-category="ai-ml">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-neon font-bold uppercase tracking-wider">AI / ML</span>
+            <i data-lucide="sparkles" class="w-5 h-5 text-gray-400 group-hover:text-neon transition-colors"></i>
+          </div>
+          <h3 class="text-2xl font-kanit font-bold text-white mb-2">Machine Learning</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">Supervised/unsupervised algorithms, regression, classification, clustering, model evaluation, and Python data pipelines.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 pt-2 border-t border-white/10">
+            <span>ML Models</span>
+            <span class="text-neon font-bold">Core Focus</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- EXPERIENCE & EDUCATION SECTION                                  -->
+    <!-- ================================================================ -->
+    <section id="experience" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <p class="text-neon font-mono text-xs tracking-widest uppercase font-semibold">// 03. CAREER & EDUCATION</p>
+        <h2 class="text-3xl sm:text-5xl font-kanit font-bold text-white">Experience & Journey</h2>
+        <p class="text-gray-400 font-inter text-base">Academic foundations and professional trajectory toward scalable engineering and AI.</p>
+        <div class="w-16 h-1 bg-neon mx-auto rounded-full"></div>
+      </div>
+
+      <div class="max-w-4xl mx-auto space-y-8 relative">
+        <!-- Timeline vertical line -->
+        <div class="absolute left-4 sm:left-1/2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-neon via-cyanAccent to-transparent -translate-x-1/2 hidden sm:block"></div>
+
+        <!-- Timeline Item 1: Internship Status / Placeholder (Explicitly Honest) -->
+        <div class="relative flex flex-col sm:flex-row items-center justify-between gap-6 group">
+          <div class="w-full sm:w-[46%] text-left sm:text-right">
+            <div class="p-6 rounded-2xl bg-[#0E1424]/90 border border-neon/30 shadow-lg hover:border-neon transition-all">
+              <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-neon/10 text-neon font-mono text-xs mb-2">
+                <span class="w-2 h-2 rounded-full bg-neon animate-ping"></span>
+                <span>READY FOR ACTIVATION</span>
+              </div>
+              <h3 class="text-xl font-kanit font-bold text-white">Software Development / Full Stack Internship</h3>
+              <p class="text-sm font-mono text-cyanAccent mb-2">Placeholder Slot // Open to Opportunities</p>
+              <p class="text-sm text-gray-400 leading-relaxed">
+                Currently preparing for and actively seeking Software Engineer & Java Full Stack Internships. Structured component configured to display exact internship company, role, and certificate details upon confirmation.
+              </p>
+            </div>
+          </div>
+
+          <!-- Timeline Center Node -->
+          <div class="w-9 h-9 rounded-full bg-[#080C14] border-2 border-neon flex items-center justify-center text-neon z-10 shadow-md shadow-neon/40 shrink-0">
+            <i data-lucide="briefcase" class="w-4 h-4"></i>
+          </div>
+
+          <div class="w-full sm:w-[46%] text-left">
+            <div class="text-xs font-mono text-gray-400">Targeting 2024 - 2025 Internships</div>
+            <p class="text-sm text-gray-500">Java • Spring Boot • Microservices • AI Integration</p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 2: Education (IPS Academy, Indore) -->
+        <div class="relative flex flex-col sm:flex-row-reverse items-center justify-between gap-6 group">
+          <div class="w-full sm:w-[46%] text-left">
+            <div class="p-6 rounded-2xl bg-[#0E1424]/90 border border-white/15 shadow-lg hover:border-cyanAccent transition-all">
+              <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-cyanAccent/10 text-cyanAccent font-mono text-xs mb-2">
+                <span>DEGREE PROGRAM</span>
+              </div>
+              <h3 class="text-xl font-kanit font-bold text-white">B.Tech in Artificial Intelligence & Machine Learning</h3>
+              <p class="text-sm font-mono text-neon mb-2">IPS Academy, Indore • 2023 - 2027</p>
+              <p class="text-sm text-gray-400 leading-relaxed">
+                Pursuing comprehensive undergraduate curriculum covering Data Structures & Algorithms, Object-Oriented Programming with Java, Database Management Systems, Computer Networks, and Machine Learning Mathematics.
+              </p>
+            </div>
+          </div>
+
+          <!-- Timeline Center Node -->
+          <div class="w-9 h-9 rounded-full bg-[#080C14] border-2 border-cyanAccent flex items-center justify-center text-cyanAccent z-10 shadow-md shadow-cyanAccent/40 shrink-0">
+            <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+          </div>
+
+          <div class="w-full sm:w-[46%] text-left sm:text-right">
+            <div class="text-xs font-mono text-gray-400">Batch 2023 - 2027</div>
+            <p class="text-sm text-gray-500">Autonomous Engineering Institution, Indore</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- PROJECTS SECTION                                                -->
+    <!-- ================================================================ -->
+    <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <p class="text-neon font-mono text-xs tracking-widest uppercase font-semibold">// 04. FEATURED WORK</p>
+        <h2 class="text-3xl sm:text-5xl font-kanit font-bold text-white">Engineered Projects</h2>
+        <p class="text-gray-400 font-inter text-base">Production-grade enterprise architectures, microservices, and AI-driven applications.</p>
+        <div class="w-16 h-1 bg-neon mx-auto rounded-full"></div>
+      </div>
+
+      <!-- Project Category Filters -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12">
+        <button class="project-tab active px-4 py-2 rounded-xl font-kanit font-medium text-sm transition-all" data-filter="all">
+          All Projects
+        </button>
+        <button class="project-tab px-4 py-2 rounded-xl font-kanit font-medium text-sm transition-all text-gray-400 hover:text-white" data-filter="java-backend">
+          Java & Backend
+        </button>
+        <button class="project-tab px-4 py-2 rounded-xl font-kanit font-medium text-sm transition-all text-gray-400 hover:text-white" data-filter="ai-ml">
+          AI & Machine Learning
+        </button>
+        <button class="project-tab px-4 py-2 rounded-xl font-kanit font-medium text-sm transition-all text-gray-400 hover:text-white" data-filter="fullstack">
+          Full Stack
+        </button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projects-grid">
+        
+        <!-- Project 1: Enterprise Microservices Platform -->
+        <div class="project-card rounded-3xl bg-[#0E1424] border border-white/10 hover:border-neon/50 overflow-hidden shadow-2xl transition-all duration-300 hover:-translate-y-2 group flex flex-col" data-category="java-backend">
+          <!-- Card Visual Banner -->
+          <div class="relative h-48 bg-gradient-to-tr from-[#050b14] via-[#0e192f] to-[#0a2333] p-6 flex flex-col justify-between overflow-hidden border-b border-white/5">
+            <div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-neon/10 blur-3xl group-hover:bg-neon/20 transition-colors"></div>
+            <div class="flex items-center justify-between z-10">
+              <span class="px-3 py-1 rounded-full bg-black/50 border border-neon/30 text-neon font-mono text-xs">Java • Spring Boot</span>
+              <div class="p-2 rounded-xl bg-black/40 text-gray-300 group-hover:text-neon transition-colors">
+                <i data-lucide="server" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <div class="z-10">
+              <span class="text-xs font-mono text-gray-400">MICROSERVICES ARCHITECTURE</span>
+              <h3 class="text-2xl font-kanit font-bold text-white group-hover:text-neon transition-colors">Enterprise Banking & Commerce Backend</h3>
+            </div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Resilient distributed backend designed with Spring Cloud, Eureka service discovery, API Gateway, and resilient circuit breakers. Provides secure JWT authentication, transaction isolation, and high-throughput REST APIs.
+            </p>
+
+            <!-- Tech Stack Tags -->
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Java</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Spring Boot</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Microservices</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">PostgreSQL</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Docker</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center justify-between pt-4 border-t border-white/10">
+              <a href="https://github.com/ayushjawane27" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 text-xs font-mono text-gray-300 hover:text-neon transition-colors">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                <span>Repository</span>
+              </a>
+              <a href="#contact" class="flex items-center space-x-1.5 text-xs font-mono text-neon hover:underline">
+                <span>View Details</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: AI Predictive Analytics Suite -->
+        <div class="project-card rounded-3xl bg-[#0E1424] border border-white/10 hover:border-cyanAccent/50 overflow-hidden shadow-2xl transition-all duration-300 hover:-translate-y-2 group flex flex-col" data-category="ai-ml">
+          <!-- Card Visual Banner -->
+          <div class="relative h-48 bg-gradient-to-tr from-[#050b14] via-[#101f2e] to-[#0d2a42] p-6 flex flex-col justify-between overflow-hidden border-b border-white/5">
+            <div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-cyanAccent/10 blur-3xl group-hover:bg-cyanAccent/20 transition-colors"></div>
+            <div class="flex items-center justify-between z-10">
+              <span class="px-3 py-1 rounded-full bg-black/50 border border-cyanAccent/30 text-cyanAccent font-mono text-xs">Python • AI / ML</span>
+              <div class="p-2 rounded-xl bg-black/40 text-gray-300 group-hover:text-cyanAccent transition-colors">
+                <i data-lucide="brain" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <div class="z-10">
+              <span class="text-xs font-mono text-gray-400">INTELLIGENT PREDICTION</span>
+              <h3 class="text-2xl font-kanit font-bold text-white group-hover:text-cyanAccent transition-colors">AI-Powered Predictive Analytics Engine</h3>
+            </div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Machine learning pipeline trained for multi-variable classification and trend forecasting. Features automated data cleaning, feature engineering, statistical metrics, and an interactive prediction dashboard.
+            </p>
+
+            <!-- Tech Stack Tags -->
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Python</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Machine Learning</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Scikit-Learn</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Pandas</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">REST API</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center justify-between pt-4 border-t border-white/10">
+              <a href="https://github.com/ayushjawane27" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 text-xs font-mono text-gray-300 hover:text-cyanAccent transition-colors">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                <span>Repository</span>
+              </a>
+              <a href="#contact" class="flex items-center space-x-1.5 text-xs font-mono text-cyanAccent hover:underline">
+                <span>View Details</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: Full Stack Workflow Orchestrator -->
+        <div class="project-card rounded-3xl bg-[#0E1424] border border-white/10 hover:border-neon/50 overflow-hidden shadow-2xl transition-all duration-300 hover:-translate-y-2 group flex flex-col" data-category="fullstack">
+          <!-- Card Visual Banner -->
+          <div class="relative h-48 bg-gradient-to-tr from-[#050b14] via-[#102419] to-[#0c3320] p-6 flex flex-col justify-between overflow-hidden border-b border-white/5">
+            <div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-neon/10 blur-3xl group-hover:bg-neon/20 transition-colors"></div>
+            <div class="flex items-center justify-between z-10">
+              <span class="px-3 py-1 rounded-full bg-black/50 border border-neon/30 text-neon font-mono text-xs">React • Spring Boot</span>
+              <div class="p-2 rounded-xl bg-black/40 text-gray-300 group-hover:text-neon transition-colors">
+                <i data-lucide="layers" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <div class="z-10">
+              <span class="text-xs font-mono text-gray-400">FULL STACK APPLICATION</span>
+              <h3 class="text-2xl font-kanit font-bold text-white group-hover:text-neon transition-colors">Full-Stack Cloud Workflow Orchestrator</h3>
+            </div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Complete end-to-end full-stack platform featuring a responsive React.js single-page interface seamlessly integrated with a Spring Boot REST API layer and normalized SQL database for task automation and status monitoring.
+            </p>
+
+            <!-- Tech Stack Tags -->
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">React.js</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Java</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Spring Boot</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">SQL</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Bootstrap</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center justify-between pt-4 border-t border-white/10">
+              <a href="https://github.com/ayushjawane27" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 text-xs font-mono text-gray-300 hover:text-neon transition-colors">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                <span>Repository</span>
+              </a>
+              <a href="#contact" class="flex items-center space-x-1.5 text-xs font-mono text-neon hover:underline">
+                <span>View Details</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: AI Computer Vision / Classifier -->
+        <div class="project-card rounded-3xl bg-[#0E1424] border border-white/10 hover:border-cyanAccent/50 overflow-hidden shadow-2xl transition-all duration-300 hover:-translate-y-2 group flex flex-col" data-category="ai-ml">
+          <!-- Card Visual Banner -->
+          <div class="relative h-48 bg-gradient-to-tr from-[#050b14] via-[#1b1429] to-[#2b183d] p-6 flex flex-col justify-between overflow-hidden border-b border-white/5">
+            <div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-cyanAccent/10 blur-3xl group-hover:bg-cyanAccent/20 transition-colors"></div>
+            <div class="flex items-center justify-between z-10">
+              <span class="px-3 py-1 rounded-full bg-black/50 border border-cyanAccent/30 text-cyanAccent font-mono text-xs">Python • Deep Learning</span>
+              <div class="p-2 rounded-xl bg-black/40 text-gray-300 group-hover:text-cyanAccent transition-colors">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <div class="z-10">
+              <span class="text-xs font-mono text-gray-400">NEURAL NETWORKS</span>
+              <h3 class="text-2xl font-kanit font-bold text-white group-hover:text-cyanAccent transition-colors">Automated AI Pattern & Image Classifier</h3>
+            </div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Deep learning classifier leveraging convolutional architectures for pattern recognition. Implements data augmentation, transfer learning, precision-recall optimization, and inference acceleration.
+            </p>
+
+            <!-- Tech Stack Tags -->
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Python</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Artificial Intelligence</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Machine Learning</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/10">Git</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center justify-between pt-4 border-t border-white/10">
+              <a href="https://github.com/ayushjawane27" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 text-xs font-mono text-gray-300 hover:text-cyanAccent transition-colors">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                <span>Repository</span>
+              </a>
+              <a href="#contact" class="flex items-center space-x-1.5 text-xs font-mono text-cyanAccent hover:underline">
+                <span>View Details</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- RESUME SECTION                                                  -->
+    <!-- ================================================================ -->
+    <section id="resume" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="relative rounded-3xl bg-gradient-to-r from-[#0C1424] via-[#0E1B33] to-[#0A1629] border border-neon/30 p-8 sm:p-14 overflow-hidden shadow-2xl">
+        <!-- Ambient Neon Glow -->
+        <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-neon/15 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-cyanAccent/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-8 space-y-4">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-neon/10 border border-neon/30 text-neon font-mono text-xs">
+              <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
+              <span>UPDATED CURRICULUM VITAE</span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-kanit font-bold text-white">
+              Interested in collaborating or hiring me?
+            </h2>
+            <p class="text-gray-300 font-inter text-base sm:text-lg leading-relaxed max-w-2xl">
+              Download my official resume to view my complete academic record, technical proficiencies, project architectural breakdowns, and contact information in PDF format.
+            </p>
+            <div class="flex flex-wrap gap-4 pt-2 text-xs font-mono text-gray-400">
+              <span class="flex items-center space-x-1">
+                <i data-lucide="check-circle" class="w-4 h-4 text-neon"></i>
+                <span>Java & Spring Boot</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <i data-lucide="check-circle" class="w-4 h-4 text-neon"></i>
+                <span>Microservices & REST APIs</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <i data-lucide="check-circle" class="w-4 h-4 text-neon"></i>
+                <span>AI / ML Coursework</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <i data-lucide="check-circle" class="w-4 h-4 text-neon"></i>
+                <span>B.Tech Batch 2027</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 flex flex-col items-center lg:items-end justify-center space-y-3">
+            <a href="assets/resume.pdf" download="Ayush_Jawane_Resume.pdf" class="group w-full sm:w-auto px-8 py-4 rounded-2xl bg-neon text-black font-kanit font-bold text-lg tracking-wide shadow-2xl shadow-neon/30 hover:shadow-neon/50 hover:scale-105 active:scale-95 transition-all flex items-center justify-center space-x-3">
+              <i data-lucide="download" class="w-5 h-5 transition-transform group-hover:-translate-y-1"></i>
+              <span>Download Resume (PDF)</span>
+            </a>
+            <p class="text-xs font-mono text-gray-400 text-center">
+              Official Resume: <span class="text-neon font-semibold">Ayush Jawane (PDF)</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- CONTACT SECTION                                                 -->
+    <!-- ================================================================ -->
+    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <p class="text-neon font-mono text-xs tracking-widest uppercase font-semibold">// 05. REACH OUT</p>
+        <h2 class="text-3xl sm:text-5xl font-kanit font-bold text-white">Let's Build Something Exceptional</h2>
+        <p class="text-gray-400 font-inter text-base">Have an opportunity, internship inquiry, or just want to discuss Java and AI? Send me a message!</p>
+        <div class="w-16 h-1 bg-neon mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Contact Info Cards -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- Email Card with Copy Button -->
+          <div class="p-6 rounded-2xl bg-[#0E1424] border border-white/10 hover:border-neon/40 transition-all group">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-xl bg-neon/10 border border-neon/30 flex items-center justify-center text-neon">
+                  <i data-lucide="mail" class="w-6 h-6"></i>
+                </div>
+                <div>
+                  <h4 class="text-xs font-mono text-gray-400 uppercase">DIRECT EMAIL</h4>
+                  <a href="mailto:ayush.jawane27@gmail.com" class="text-base sm:text-lg font-kanit font-bold text-white hover:text-neon transition-colors break-all">
+                    ayush.jawane27@gmail.com
+                  </a>
+                </div>
+              </div>
+              <button id="copy-email-btn" class="p-2 rounded-lg bg-white/5 hover:bg-neon/20 border border-white/10 hover:border-neon text-gray-300 hover:text-neon transition-all" title="Copy Email Address">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+              </button>
+            </div>
+            <div id="copy-toast" class="hidden mt-2 text-xs font-mono text-neon">
+              ✓ Email address copied to clipboard!
+            </div>
+          </div>
+
+          <!-- LinkedIn Card -->
+          <div class="p-6 rounded-2xl bg-[#0E1424] border border-white/10 hover:border-cyanAccent/40 transition-all group">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-xl bg-cyanAccent/10 border border-cyanAccent/30 flex items-center justify-center text-cyanAccent">
+                  <i data-lucide="linkedin" class="w-6 h-6"></i>
+                </div>
+                <div>
+                  <h4 class="text-xs font-mono text-gray-400 uppercase">LINKEDIN</h4>
+                  <a href="https://www.linkedin.com/in/ayush-jawane-234541317/" target="_blank" rel="noopener noreferrer" class="text-base sm:text-lg font-kanit font-bold text-white hover:text-cyanAccent transition-colors">
+                    Ayush Jawane
+                  </a>
+                </div>
+              </div>
+              <a href="https://www.linkedin.com/in/ayush-jawane-234541317/" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-white/5 hover:bg-cyanAccent/20 border border-white/10 hover:border-cyanAccent text-gray-300 hover:text-cyanAccent transition-all">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Location & Education Card -->
+          <div class="p-6 rounded-2xl bg-[#0E1424] border border-white/10 hover:border-neon/40 transition-all group">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-xl bg-neon/10 border border-neon/30 flex items-center justify-center text-neon">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-mono text-gray-400 uppercase">LOCATION</h4>
+                <p class="text-base sm:text-lg font-kanit font-bold text-white">Indore, Madhya Pradesh, India</p>
+                <p class="text-xs font-mono text-gray-400">IPS Academy • AI & ML Department</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Contact Form -->
+        <div class="lg:col-span-7">
+          <form id="contact-form" class="p-8 sm:p-10 rounded-3xl bg-[#0E1424] border border-white/10 shadow-2xl space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div class="space-y-2">
+                <label for="name" class="block text-xs font-mono text-gray-300 uppercase tracking-wider">Your Name *</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  required 
+                  placeholder="e.g. Rahul Sharma"
+                  class="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/15 focus:border-neon focus:ring-1 focus:ring-neon text-sm text-white placeholder-gray-500 transition-all outline-none"
+                />
+              </div>
+              <div class="space-y-2">
+                <label for="email" class="block text-xs font-mono text-gray-300 uppercase tracking-wider">Your Email *</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required 
+                  placeholder="name@example.com"
+                  class="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/15 focus:border-neon focus:ring-1 focus:ring-neon text-sm text-white placeholder-gray-500 transition-all outline-none"
+                />
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label for="subject" class="block text-xs font-mono text-gray-300 uppercase tracking-wider">Subject *</label>
+              <input 
+                type="text" 
+                id="subject" 
+                name="subject" 
+                required 
+                placeholder="Internship opportunity / Project collaboration"
+                class="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/15 focus:border-neon focus:ring-1 focus:ring-neon text-sm text-white placeholder-gray-500 transition-all outline-none"
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label for="message" class="block text-xs font-mono text-gray-300 uppercase tracking-wider">Message *</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="4" 
+                required 
+                placeholder="Hi Ayush, I came across your portfolio and would like to connect regarding..."
+                class="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/15 focus:border-neon focus:ring-1 focus:ring-neon text-sm text-white placeholder-gray-500 transition-all outline-none resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button & Feedback -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+              <button 
+                type="submit" 
+                id="contact-submit-btn" 
+                class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-neon text-black font-kanit font-bold text-base tracking-wide shadow-lg shadow-neon/20 hover:shadow-neon/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center space-x-2"
+              >
+                <span>Send Message</span>
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </button>
+
+              <div id="contact-feedback" class="hidden text-sm font-inter text-neon flex items-center space-x-2">
+                <i data-lucide="check-circle" class="w-4 h-4"></i>
+                <span>Thank you! Message drafted. Opening mail client...</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================================================================ -->
+  <!-- FOOTER                                                           -->
+  <!-- ================================================================ -->
+  <footer class="border-t border-white/10 bg-[#06090F] py-12 px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      
+      <!-- Brand & Copyright -->
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-neon/10 border border-neon/30 flex items-center justify-center text-neon font-kanit font-bold text-sm">
+          AJ
+        </div>
+        <div class="text-left">
+          <p class="text-sm font-kanit font-semibold text-white">Ayush Jawane</p>
+          <p class="text-xs text-gray-500">Java Full Stack Developer • B.Tech AI & ML (2027)</p>
+        </div>
+      </div>
+
+      <!-- Center Links -->
+      <div class="flex items-center space-x-6 text-xs font-mono text-gray-400">
+        <a href="#hero" class="hover:text-neon transition-colors">Top</a>
+        <a href="#about" class="hover:text-neon transition-colors">About</a>
+        <a href="#skills" class="hover:text-neon transition-colors">Skills</a>
+        <a href="#projects" class="hover:text-neon transition-colors">Projects</a>
+        <a href="#contact" class="hover:text-neon transition-colors">Contact</a>
+      </div>
+
+      <!-- Social and Back to Top -->
+      <div class="flex items-center space-x-3">
+        <a href="https://www.linkedin.com/in/ayush-jawane-234541317/" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-white/5 hover:bg-neon/10 text-gray-400 hover:text-neon transition-all" title="LinkedIn">
+          <i data-lucide="linkedin" class="w-4 h-4"></i>
+        </a>
+        <a href="https://github.com/ayushjawane27" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-white/5 hover:bg-neon/10 text-gray-400 hover:text-neon transition-all" title="GitHub">
+          <i data-lucide="github" class="w-4 h-4"></i>
+        </a>
+        <button id="back-to-top" class="p-2 rounded-lg bg-white/5 hover:bg-neon/10 text-gray-400 hover:text-neon transition-all" title="Back to top">
+          <i data-lucide="arrow-up" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/ai-character.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Initialize Lucide icons on load
+    lucide.createIcons();
+  </script>
+</body>
+</html>
