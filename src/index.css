@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-color: #00FF87;
+  --neon-glow: rgba(0, 255, 135, 0.35);
+  --cyan-accent: #00F0FF;
+  --cyan-glow: rgba(0, 240, 255, 0.3);
+  --bg-dark: #080808;
+  --card-dark: #121212;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+::-webkit-scrollbar-thumb {
+  background: #222222;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-color);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Gradient Button (Direct Reference to amitmanmode.me) */
+.btn-amit-gradient {
+  background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
+  box-shadow: 0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset;
+  outline: 2px solid #FFFFFF;
+  outline-offset: -3px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-amit-gradient:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 6px 14px rgba(181, 1, 167, 0.4), 4px 4px 14px #7721B1 inset;
+}
+.btn-amit-gradient:active {
+  transform: scale(0.98);
+}
+
+/* Glass Card */
+.glass-panel {
+  background: rgba(18, 18, 18, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  border-color: rgba(0, 255, 135, 0.35);
+  box-shadow: 0 12px 35px -10px rgba(0, 255, 135, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Custom Cursor Glow */
+.cursor-dot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--neon-color);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px var(--neon-color);
+  transition: opacity 0.2s ease;
+}
+
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(0, 255, 135, 0.45);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot, .cursor-ring {
+    display: none !important;
+  }
+}
