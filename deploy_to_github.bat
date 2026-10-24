@@ -1,44 +1,60 @@
 @echo off
-title Deploy Ayush Jawane Portfolio to GitHub
+title Deploy Ayush Jawane Portfolio to GitHub & Vercel
+color 0A
 echo ========================================================
-echo   Deploying Ayush Jawane Portfolio to GitHub
-echo   Target Repo: https://github.com/ayushjawane27/portfolio-.git
+echo   Ayush Jawane Portfolio - GitHub & Vercel Deployment
+echo   Repository: https://github.com/ayushjawane27/portfolio-.git
 echo ========================================================
 echo.
 
 set GIT_PATH="C:\Users\ayush\.gemini\antigravity\scratch\mingit\cmd\git.exe"
-
 cd /d "C:\Users\ayush\.gemini\antigravity\scratch\ayush-portfolio"
 
-echo Staging all updated files...
-%GIT_PATH% add .
-%GIT_PATH% commit -m "feat: complete interactive developer portfolio with human character and verified resume" 2>nul
-%GIT_PATH% branch -M main
+echo [1/3] Checking Git Status...
+%GIT_PATH% status
+echo.
 
+echo [2/3] Authenticating & Pushing to GitHub...
+echo If you have a GitHub Personal Access Token (PAT), paste it below.
+echo (Or press ENTER to use your browser/standard GitHub login):
 echo.
-echo To push to GitHub, please enter your GitHub Personal Access Token (PAT).
-echo (If you don't have one, generate one at: https://github.com/settings/tokens with 'repo' scope)
-echo.
-set /p TOKEN="Enter GitHub Token (or press Enter to try default auth): "
+set /p TOKEN="GitHub Token (optional, press Enter for browser login): "
 
 if "%TOKEN%"=="" (
-    echo Attempting push with default credentials...
-    %GIT_PATH% push -u https://github.com/ayushjawane27/portfolio-.git main
+    echo.
+    echo Pushing with standard Git credential manager...
+    %GIT_PATH% push -u origin main
 ) else (
-    echo Pushing with provided token...
+    echo.
+    echo Pushing with token authentication...
     %GIT_PATH% push -u https://%TOKEN%@github.com/ayushjawane27/portfolio-.git main
 )
 
 if %ERRORLEVEL% EQU 0 (
     echo.
     echo ========================================================
-    echo   SUCCESS! Pushed to https://github.com/ayushjawane27/portfolio-
-    echo   You can now enable GitHub Pages in your repo settings:
-    echo   Settings -^> Pages -^> Branch: main -^> Save
+    echo   [SUCCESS] Code successfully pushed to GitHub!
+    echo   Repo: https://github.com/ayushjawane27/portfolio-
     echo ========================================================
+    echo.
+    echo [3/3] Deploy to Vercel:
+    echo Opening Vercel New Project page in your browser...
+    start https://vercel.com/new/import?s=https://github.com/ayushjawane27/portfolio-
+    echo.
+    echo In Vercel:
+    echo 1. Click 'Import' next to 'portfolio-'
+    echo 2. Framework Preset will be automatically detected as 'Vite'
+    echo 3. Click 'Deploy'
+    echo.
 ) else (
     echo.
-    echo [ERROR] Push failed. Please verify your token or repository permissions.
+    echo ========================================================
+    echo   [NOTICE] If authentication failed:
+    echo   1. Generate a token at: https://github.com/settings/tokens
+    echo   2. Check 'repo' scope
+    echo   3. Run this script again and paste the token.
+    echo ========================================================
 )
 
+echo.
 pause
