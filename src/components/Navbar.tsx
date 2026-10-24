@@ -20,6 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isVoiceActive, onToggleVoice }) 
     { label: 'PROJECTS', href: '#projects' },
     { label: 'EDUCATION', href: '#education' },
     { label: 'CERTIFICATIONS', href: '#certifications' },
+    { label: 'RESUME', href: '#resume' },
     { label: 'CONTACT', href: '#contact' },
   ];
 
@@ -27,7 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isVoiceActive, onToggleVoice }) 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
 
-      const sections = ['hero', 'about', 'skills', 'internships', 'projects', 'education', 'certifications', 'contact'];
+      const sections = ['hero', 'about', 'skills', 'internships', 'projects', 'education', 'certifications', 'resume', 'contact'];
       const scrollPos = window.scrollY + 180;
 
       for (const section of sections) {

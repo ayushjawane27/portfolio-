@@ -272,6 +272,11 @@ export const portfolioData = {
       text: "His portfolio highlights four major engineering solutions: the AI Chat Processor, the Predictive Model Evaluation System, the Divya-Yatri pilgrimage platform, and the Trial Equity Backtesting Platform analyzing 115 NSE stocks.",
     },
     {
+      section: "resume",
+      title: "Official Resume",
+      text: "You can view Ayush's verified single-page developer resume directly embedded right here on the website, or download the official PDF with a single click.",
+    },
+    {
       section: "contact",
       title: "Get In Touch",
       text: "Ayush is based in Rau, Indore and is actively open to software engineering roles. You can download his verified resume, email him directly, or connect with him on LinkedIn.",
