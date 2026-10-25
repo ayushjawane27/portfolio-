@@ -194,12 +194,14 @@ export const Hero: React.FC<HeroProps> = ({ isVoiceActive, onToggleVoice, onNavi
   };
 
   // Select image frame based on state
-  const avatarImageSrc =
-    avatarState === 'blink'
-      ? '/assets/images/ayush_blink.jpg'
-      : avatarState === 'talking'
-      ? '/assets/images/ayush_talking.jpg'
-      : '/assets/images/ayush_idle.jpg';
+  // const avatarImageSrc =
+  //   avatarState === 'blink'
+  //     ? '/assets/images/ayush_blink.jpg'
+  //     : avatarState === 'talking'
+  //     ? '/assets/images/ayush_talking.jpg'
+  //     : '/assets/images/ayush_idle.jpg';
+
+  const avatarImageSrc = '/assets/images/ayush.jpeg'; // Using a single image for simplicity
 
   return (
     <section id="hero" className="relative min-h-screen pt-28 pb-16 flex flex-col justify-between overflow-hidden bg-[#080808]">
